@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vincent.pay.mapper.payMapper">
+<!--mysql-->
+<!--    <insert id="insert" parameterType="com.vincent.pay.pojo.Pay"  useGeneratedKeys="true" keyProperty="payId">-->
+<!--        insert into pay (totalPrice, userId)-->
+<!--        values (#{totalPrice,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})-->
+<!--    </insert>-->
+
+<!--    <delete id="deleteByPayId" parameterType="java.lang.Integer">-->
+<!--        delete from pay-->
+<!--        where payId = #{payId,jdbcType=INTEGER}-->
+<!--    </delete>-->
+
+
+
+<!--gauss-->
+    <insert id="insert" parameterType="com.vincent.pay.pojo.Pay"  useGeneratedKeys="true" keyProperty="payId">
+        insert into sys.pay ("totalPrice", "userId")
+        values (#{totalPrice,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+    </insert>
+
+    <delete id="deleteByPayId" parameterType="java.lang.Integer">
+        delete from sys.pay
+        where "payId" = #{payId,jdbcType=INTEGER}
+    </delete>
+
+
+</mapper>

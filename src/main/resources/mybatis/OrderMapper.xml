@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vincent.order.mapper.OrderMapper">
+
+<!--mysql-->
+
+<!--  <insert id="insert" parameterType="com.vincent.order.pojo.Order">-->
+<!--    insert into `order` (orderId, UserId, commodityId,-->
+<!--totalPrice,orderNo)-->
+<!--    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{commodityId,jdbcType=INTEGER},-->
+<!--            #{totalPrice,jdbcType=INTEGER},#{orderNo,jdbcType=INTEGER})-->
+<!--  </insert>-->
+
+
+
+
+<!--gauss-->
+    <insert id="insert" parameterType="com.vincent.order.pojo.Order">
+        insert into sys."order" ("orderId", "userId", "commodityId",
+                             "totalPrice","orderNo")
+        values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{commodityId,jdbcType=INTEGER},
+                #{totalPrice,jdbcType=INTEGER},#{orderNo,jdbcType=INTEGER})
+    </insert>
+
+
+
+
+
+
+  <!--  <sql id="Base_Column_List">
+        orderId, UserId, commodityId, totalPrice
+    </sql>-->
+ <!-- <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </delete>-->
+  <!--<insert id="insertSelective" parameterType="com.vincent.order.pojo.Order">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="commodityid != null">
+        commodityId,
+      </if>
+      <if test="totalprice != null">
+        totalPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="commodityid != null">
+        #{commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null">
+        #{totalprice,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vincent.order.pojo.Order">
+    update order
+    <set>
+      <if test="userid != null">
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="commodityid != null">
+        commodityId = #{commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null">
+        totalPrice = #{totalprice,jdbcType=INTEGER},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vincent.order.pojo.Order">
+    update order
+    set UserId = #{userid,jdbcType=INTEGER},
+      commodityId = #{commodityid,jdbcType=INTEGER},
+      totalPrice = #{totalprice,jdbcType=INTEGER}
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.vincent.order.pojo.Order">
+    <constructor>
+      <arg column="orderid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="userid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="commodityid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="totalprice" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.vincent.order.pojo.Order">
+    insert into order (orderid, userid, commodityid,
+      totalprice)
+    values (#{orderid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{commodityid,jdbcType=INTEGER},
+      #{totalprice,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vincent.order.pojo.Order">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="commodityid != null">
+        commodityid,
+      </if>
+      <if test="totalprice != null">
+        totalprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="commodityid != null">
+        #{commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null">
+        #{totalprice,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>-->
+</mapper>

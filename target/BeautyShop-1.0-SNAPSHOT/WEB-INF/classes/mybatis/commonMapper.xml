@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vincent.common.mapper.commonMapper">
+
+    <!--mysql-->
+    <!--    <select id="selectAll" parameterType="java.lang.String" resultType="com.vincent.common.pojo.Common">-->
+    <!--        select *-->
+    <!--        from ${table_name}-->
+    <!--    </select>-->
+
+
+    <!--gaussdb-->
+    <select id="selectAll" parameterType="java.lang.String" resultType="com.vincent.common.pojo.Common">
+        <if test="table_name == 'user'">
+            select * from sys."${table_name}"
+        </if>
+        <if test="table_name != 'user'">
+            select * from sys.${table_name}
+        </if>
+    </select>
+
+
+    <select id="getOneById" parameterType="com.vincent.common.pojo.CommOpper"
+            resultType="com.vincent.common.pojo.Common">
+        <choose>
+            <when test="tableName.equals('order')">
+                select *
+                from sys."${tableName}"
+                where "${tableName}Id" = #{id}
+            </when>
+            <when test="tableName.equals('user')">
+                select *
+                from sys."${tableName}"
+                where "${tableName}Id" = #{id}
+            </when>
+            <otherwise>
+                select *
+                from sys.${tableName}
+                where "${tableName}Id" = #{id}
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <delete id="delete" parameterType="com.vincent.common.pojo.CommOpper">
+        <!--注释不能用/* */-->
+        <if test="tableName == 'user'">
+            delete from sys."${tableName}" where "${idColumnName}"=#{id}
+        </if>
+        <if test="tableName != 'user'">
+            delete from sys.${tableName} where "${idColumnName}"=#{id}
+        </if>
+
+    </delete>
+
+
+    <update id="update" parameterType="com.vincent.common.pojo.CommOpper">
+        <!--如果是user-->
+        <if test="tableName == 'user'">
+            update sys."${tableName}"
+            <set>
+                <!--user-->
+                <if test="maps.userName != null">
+                    "userName"=#{maps.userName,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.password != null">
+                    "password"=#{maps.password,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.phone != null">
+                    "phone"=#{maps.phone,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.gender != null">
+                    "gender" = #{maps.gender,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.balance != null">
+                    "balance" = #{maps.balance,jdbcType=INTEGER},
+                </if>
+                <if test="maps.location != null">
+                    "location" = #{maps.location,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.check != 0">
+                    "check" = #{maps.check,jdbcType=INTEGER},
+                </if>
+            </set>
+            where "${tableName}Id" = #{id,jdbcType=INTEGER}
+        </if>
+
+        <!--如果不是user-->
+        <if test="tableName != 'user'">
+            update sys.${tableName}
+            <set>
+                <choose>
+                    <!--commodity-->
+                    <when test="tableName.equals('commodity')">
+                        <if test="maps.commodityName != null">
+                            "commodityName" = #{maps.commodityName,jdbcType=VARCHAR},
+                        </if>
+                        <if test="maps.categoryId != null">
+                            "categoryId" = #{maps.categoryId,jdbcType=INTEGER},
+                        </if>
+                        <if test="maps.price != 0">
+                            "price" = #{maps.price,jdbcType=INTEGER},
+                        </if>
+                        <choose>
+                            <when test="maps.img != null">
+                                "img" = #{maps.img,jdbcType=VARCHAR},
+                            </when>
+                            <otherwise>
+                                "img" = NULL,
+                            </otherwise>
+                        </choose>
+                        <if test="maps.inventory != 0">
+                            "inventory" = #{maps.inventory,jdbcType=INTEGER},
+                        </if>
+                    </when>
+
+                    <!--category-->
+                    <when test="tableName.equals('category')">
+
+                        <if test="maps.categoryName != null">
+                            "categoryName" = #{maps.categoryName,jdbcType=VARCHAR},
+                        </if>
+                    </when>
+
+                    <!--ordere-->
+                    <when test="tableName.equals('`order`')">
+
+                        <if test="maps.orderNo != null">
+                            "orderNo" = #{maps.orderNo,jdbcType=VARCHAR},
+                        </if>
+                        <if test="maps.totalPrice != 0">
+                            "totalPrice" = #{maps.totalPrice,jdbcType=VARCHAR},
+                        </if>
+                        <if test="maps.userId != null">
+                            "userId" = #{maps.userId,jdbcType=VARCHAR},
+                        </if>
+                        <if test="maps.commodityId != null">
+                            "commodityId" = #{maps.commodityId,jdbcType=VARCHAR},
+                        </if>
+                    </when>
+                </choose>
+            </set>
+            where "${tableName}Id" = #{id,jdbcType=INTEGER}
+        </if>
+    </update>
+
+
+    <insert id="add" parameterType="com.vincent.common.pojo.CommOpper">
+        <if test="tableName == 'user'">
+            insert into sys."${tableName}"
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <!--user-->
+                <if test="maps.userId != 0">
+                    #{maps.userId,jdbcType=INTEGER},
+                </if>
+                <if test="maps.userName != null">
+                    #{maps.userName,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.password != null">
+                    #{maps.password,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.phone != null">
+                    #{maps.phone,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.gender != null">
+                    #{maps.gender,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.balance != 0">
+                    #{maps.balance,jdbcType=INTEGER},
+                </if>
+                <if test="maps.location != null">
+                    #{maps.location,jdbcType=VARCHAR},
+                </if>
+                <if test="maps.check != 0">
+                    #{maps.check,jdbcType=INTEGER},
+                </if>
+            </trim>
+        </if>
+        <if test="tableName != 'user'">
+            insert into sys.${tableName}
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="tableName == 'commodity'">
+                    <if test="maps.commodityId != 0">
+                        #{maps.commodityId,jdbcType=INTEGER},
+                    </if>
+                    <if test="maps.commodityName != null">
+                        #{maps.commodityName,jdbcType=VARCHAR},
+                    </if>
+                    <if test="maps.categoryId != null">
+                        #{maps.categoryId,jdbcType=INTEGER},
+                    </if>
+                    <if test="maps.price != null">
+                        #{maps.price,jdbcType=INTEGER},
+                    </if>
+                    <choose>
+                        <when test="maps.img != null">
+                            #{maps.img,jdbcType=VARCHAR},
+                        </when>
+                        <otherwise>
+                            NULL,
+                        </otherwise>
+                    </choose>
+                    <if test="maps.inventory != null">
+                        #{maps.inventory,jdbcType=INTEGER},
+                    </if>
+                </if>
+
+                <!--category-->
+                <if test="tableName == 'category'">
+                    <if test="maps.categoryId != 0">
+                        #{maps.categoryId,jdbcType=INTEGER},
+                    </if>
+                    <if test="maps.categoryName != null">
+                        #{maps.categoryName,jdbcType=VARCHAR},
+                    </if>
+                </if>
+            </trim>
+        </if>
+    </insert>
+
+
+    <!--    <insert id="add" parameterType="com.vincent.common.pojo.CommOpper">-->
+    <!--        insert into ${tableName}-->
+    <!--        <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--            &lt;!&ndash;commodity&ndash;&gt;-->
+    <!--            <if test="maps.commodityId != 0">-->
+    <!--                #{maps.commodityId,jdbcType=INTEGER},-->
+    <!--            </if>-->
+    <!--            <if test="maps.commodityName != null">-->
+    <!--                #{maps.commodityName,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            &lt;!&ndash;注意一下这里是categoryId&ndash;&gt;-->
+    <!--            <if test="maps.categoryId != null">-->
+    <!--                #{maps.categoryId,jdbcType=INTEGER},-->
+    <!--            </if>-->
+    <!--            -->
+    <!--            <if test="maps.price != null">-->
+    <!--                #{maps.price,jdbcType=INTEGER},-->
+    <!--            </if>-->
+    <!--            &lt;!&ndash;<if test="maps.img != null">-->
+    <!--                #{maps.img,jdbcType=VARCHAR},-->
+    <!--            </if>&ndash;&gt;-->
+    <!--            <choose>-->
+    <!--                <when test="maps.img != null">-->
+    <!--                    #{maps.img,jdbcType=VARCHAR},-->
+    <!--                </when>-->
+    <!--                <otherwise>-->
+    <!--                    NULL,-->
+    <!--                </otherwise>-->
+    <!--            </choose>-->
+    <!--            <if test="maps.inventory != null">-->
+    <!--                #{maps.inventory,jdbcType=INTEGER},-->
+    <!--            </if>-->
+
+
+    <!--            &lt;!&ndash;user&ndash;&gt;-->
+    <!--            <if test="maps.userId != null">-->
+    <!--                #{maps.userId,jdbcType=INTEGER},-->
+    <!--            </if>-->
+    <!--            <if test="maps.userName != null">-->
+    <!--                #{maps.userName,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="maps.password != null">-->
+    <!--                #{maps.password,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+
+    <!--            <if test="maps.phone != null">-->
+    <!--                #{maps.phone,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="maps.gender != null">-->
+    <!--                #{maps.gender,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="maps.balance != null">-->
+    <!--                #{maps.balance,jdbcType=INTEGER},-->
+    <!--            </if>-->
+    <!--            <if test="maps.location != null">-->
+    <!--                #{maps.location,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="maps.check != null">-->
+    <!--                #{maps.check,jdbcType=INTEGER},-->
+    <!--            </if>-->
+
+    <!--            &lt;!&ndash;category&ndash;&gt;-->
+    <!--            &lt;!&ndash;<if test="maps.categoryId != null">-->
+    <!--                #{maps.categoryId,jdbcType=INTEGER},-->
+    <!--            </if>-->
+    <!--            <if test="maps.categoryName != null">-->
+    <!--                #{maps.categoryName,jdbcType=VARCHAR},-->
+    <!--            </if>&ndash;&gt;-->
+    <!--        </trim>-->
+    <!--    </insert>-->
+
+
+</mapper>

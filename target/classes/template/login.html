@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--  采用cdn分发技术  -->
+    <!--jquery的网络链接-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <!--bootstrap   css / js 的网络链接-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+    <!--font-awesome图标字体的网络链接-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="background:url(static/backgroundPic.jpg)">
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="row">
+    <div class="col-xs-offset-3 col-xs-6">
+        <div class="panel panel-primary">
+            <!--&nbsp 空格 -->
+            <div class="panel-heading">
+                <center><h3>登&nbsp;录</h3></center>
+            </div>
+            <div class="panel-body">
+                <!--用<br/>换行来调整距离-->
+                <br/>
+                <br/>
+
+                <!--http://localhost:8080/user/login_success-->
+                <form action="login_success" method="post">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user fa-fw"></i>
+                            用户名：
+                        </span>
+                        <input type="text" class="form-control" name="userName" placeholder="请输入用户名">
+                    </div>
+
+                    <br/>
+                    <br/>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-key fa-fw"></i>
+                            密&nbsp;&nbsp;&nbsp;&nbsp;码：
+                        </span>
+                        <input type="text" class="form-control" name="password" placeholder="请输入密码">
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-offset-2 col-sm-4">
+                            <input type="radio" name="platform" value="0">前台
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="radio" name="platform" value="1">后台
+                        </div>
+                    </div>
+                    <!--用<br/>换行来调整距离-->
+
+                    <div class="row">
+                        <div class="col-sm-offset-2 col-sm-3">
+                            <button type="submit" class="btn btn-success">登录</button>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-3">
+                            <a href="http://localhost:8080/user/register">
+                                <button type="button" class="btn btn-info">注册</button>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vincent.commodity.mapper.CommodityMapper">
+
+<!--这里用  _  来确定commodityResultMap的位置-->
+  <resultMap id="com_vincent_commodity_mapper_CommodityResultMap" type="com.vincent.commodity.pojo.Commodity">
+    <id property="commodityId" column="commodityId"/>
+    <result property="commodityName" column="commodityName"/>
+    <result property="img" column="img"/>
+    <result property="price" column="price"/>
+    <result property="inventory" column="inventory"/>
+    <result property="categoryId" column="categoryId"/>
+    <result property="categoryName" column="CategoryName"/>
+  </resultMap>
+
+<!--mysql-->
+ <!-- 利用表关联获取一下commodity的信息        &lt;!&ndash;这里id要和resultMap的统一-->
+<!--  <select id="selectAll_test" resultMap="com_vincent_commodity_mapper_CommodityResultMap">-->
+<!--    SELECT c.*, cat.categoryName AS CategoryName-->
+<!--    FROM Commodity c-->
+<!--           JOIN Category cat ON c.categoryId = cat.categoryId-->
+<!--  </select>-->
+
+
+  <!--利用表关联获取一下commodity的信息-->        <!--这里id要和resultMap的统一-->
+<!--  <select id="selectByCommodityId" parameterType="java.lang.Integer" resultMap="com_vincent_commodity_mapper_CommodityResultMap">-->
+<!--    SELECT c.*, cat.categoryName AS CategoryName-->
+<!--    FROM Commodity c-->
+<!--           JOIN Category cat ON c.categoryId = cat.categoryId-->
+<!--    WHERE c.commodityId = #{commodityId}-->
+<!--  </select>-->
+
+
+
+
+
+
+
+    <!--1、获取所有commodity-->
+<!--    <select id="selectAll" resultType="com.vincent.commodity.pojo.Commodity">-->
+<!--      select * from commodity-->
+<!--    </select>-->
+
+
+
+
+
+<!--   <insert id="insert" parameterType="com.vincent.commodity.pojo.Commodity">-->
+<!--     insert into commodity (commodityid, commodityname, categoryid,-->
+<!--                            price, inventory)-->
+<!--     values (#{commodityid,jdbcType=INTEGER}, #{commodityname,jdbcType=VARCHAR}, #{categoryid,jdbcType=INTEGER},-->
+<!--             #{price,jdbcType=INTEGER}, #{inventory,jdbcType=INTEGER})-->
+<!--   </insert>-->
+
+
+   <!--添加一个商品-->
+<!--   <insert id="add" parameterType="com.vincent.commodity.pojo.Commodity">-->
+<!--     insert into commodity ( commodityname, categoryid,-->
+<!--                             price, inventory)-->
+<!--     values ( #{commodityname,jdbcType=VARCHAR}, #{categoryid,jdbcType=INTEGER},-->
+<!--              #{price,jdbcType=INTEGER}, #{inventory,jdbcType=INTEGER})-->
+<!--   </insert>-->
+
+
+
+
+  <!--gauss-->
+  <!--利用表关联获取一下commodity的信息-->        <!--这里id要和resultMap的统一-->
+  <select id="selectAll_test" resultMap="com_vincent_commodity_mapper_CommodityResultMap">
+    <!--SELECT c.*, cat."categoryName" AS "CategoryName"
+    FROM sys."Commodity" c
+           JOIN sys."Category"  ON c."categoryId" = cat."categoryId"-->
+
+    SELECT c.*, sys.category."categoryName" AS "categoryName"
+    FROM sys.commodity as c
+           JOIN sys.category ON c."categoryId" = sys.category."categoryId"
+
+  </select>
+
+
+  <!--利用表关联获取一下commodity的信息-->        <!--这里id要和resultMap的统一-->
+  <select id="selectByCommodityId" parameterType="java.lang.Integer" resultMap="com_vincent_commodity_mapper_CommodityResultMap">
+    SELECT c.*, cat."categoryName" AS "CategoryName"
+    FROM sys.Commodity c
+           JOIN sys.Category cat ON c."categoryId" = cat."categoryId"
+    WHERE c."commodityId" = #{commodityId}
+  </select>
+
+</mapper>

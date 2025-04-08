@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  resources:
+    static-locations: classpath:/static/
+  thymeleaf:
+    prefix: classpath:/template/    #不然会找不到html文件    注意空格
+    suffix: .html
+    #Thymeleaf 的配置属性通常应该被定义在spring.thymeleaf的命名空间下，而不是spring.resources。
+    #spring.resources用于配置静态资源的处理，而spring.thymeleaf用于配置Thymeleaf模板引擎。
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource   #数据库连接池
+    url: jdbc:mysql://localhost:3306/commodityshop?characterEncoding=utf8&serverTimezone=Asia/Shanghai  #数据库连接地址
+    username: root   #数据库登录用户名
+    password: 123456    #数据库登录密码
+#    url: jdbc:zenith:@192.168.81.140:1888
+#    username: vincent
+#    password: Wst2539234366
+#    driver-class-name: com.huawei.gauss.jdbc.ZenithDriver
+
+mybatis:
+  mapper-locations: classpath:mybatis/*.xml   #sql语句的位置
+
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #显示执行的sql语句
