@@ -1,5 +1,6 @@
 package com.vincent.user.pojo;
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.vincent.order.pojo.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    
+
     //24.4.8
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ID_WORKER)
     private int userId;
 
     private String userName;
@@ -37,12 +38,5 @@ public class User {
     public List<Order> getOrders() {
         return orders;
     }
-
-    public static void main(String[] args) {
-        User user = new User();
-        user.getPassword();
-    }
-
-
 
 }

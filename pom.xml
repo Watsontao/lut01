@@ -50,7 +50,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.9</version>
+            <version>3.1.2</version>
         </dependency>
 
         <!--分页:模块只mysql,oracle有效-->
