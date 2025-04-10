@@ -39,9 +39,26 @@ public class managerController <T> {
         List<String>  list = new ArrayList<>();
 
         //不知道哪个表有几个field,直接返回前端是Common类,从表名后面开始走
+        System.out.println("看看className是否为null："+className);
         String tableName=  className.substring(className.lastIndexOf(".")+1);
+        System.out.println("输出一下tableName："+tableName);
 
         String tableNameLowCase = tableName.toLowerCase(); //变成小写
+
+        // 如果是 user，则改为 users（数据库中表名为 users）
+        if ("user".equals(tableNameLowCase)) {
+            tableNameLowCase = "users";
+        }
+
+        // 如果数据库中的实际表名为 "crops"，则这里做转换
+        if ("crop".equals(tableNameLowCase)) {
+            tableNameLowCase = "crops";
+        }
+
+        // 如果数据库中的实际表名为 "crops"，则这里做转换
+        if ("task".equals(tableNameLowCase)) {
+            tableNameLowCase = "tasks";
+        }
 
         String tableNameLowCaseTemp = tableNameLowCase; //temp save 一下，用于model.addAttribute("tableName",tableNameLowCaseTemp);
 
@@ -270,65 +287,106 @@ public class managerController <T> {
         Map<String, Object> mymap = new HashMap<>();
 
         // 检查每个字段，将其添加到map中，这里不再进行类型转换
-        //commodity
-        if (common.getCommodityId() != 0) {
-            mymap.put("commodityId", common.getCommodityId());
+        //Crop
+        if (common.getCropId() != 0) {
+            mymap.put("CropId", common.getCropId());
         }
-        if (common.getCommodityName() != null && !common.getCommodityName().trim().isEmpty()) {
-            mymap.put("commodityName", common.getCommodityName());
+        if (common.getUserId() != 0) {
+            mymap.put("UserId", common.getUserId());
         }
-        if (common.getPrice() != 0) {
-            mymap.put("price", common.getPrice());
+
+        if (common.getCropName() != null && !common.getCropName().trim().isEmpty()) {
+            mymap.put("CropName", common.getCropName());
         }
-        if (common.getInventory() != 0) {
-            mymap.put("inventory", common.getInventory());
+
+        if (common.getCropGreenhouseName().equals(null)) {
+            mymap.put("CropGreenhouseName", common.getCropGreenhouseName());
         }
-        //category
-        if (common.getCategoryId() != 0) {
-            mymap.put("categoryId", common.getCategoryId());
+
+        if (common.getPlantingDate().equals(null)) {
+            mymap.put("PlantingDate", common.getPlantingDate());
         }
+
+        if (common.getGrowthCycle().equals(null)) {
+            mymap.put("GrowthCycle", common.getGrowthCycle());
+        }
+
+        if (common.getEstimatedHarvestDate().equals(null)) {
+            mymap.put("EstimatedHarvestDate", common.getEstimatedHarvestDate());
+        }
+
+        if (common.getCropStatus().equals(null)) {
+            mymap.put("CropStatus", common.getCropStatus());
+        }
+
 
         //user
-
         if (common.getUserId() != 0) {
             mymap.put("userId", common.getUserId());
         }
 
         if (common.getUserName() != null && !common.getUserName().trim().isEmpty()) {
-            mymap.put("userName", common.getUserName());
+            mymap.put("UserName", common.getUserName());
         }
 
-        if (common.getPassword() != null && !common.getPassword().trim().isEmpty()) {
-            mymap.put("password", common.getPassword());
+        if (common.getPassWord() != null && !common.getPassWord().trim().isEmpty()) {
+            mymap.put("PassWord", common.getPassWord());
         }
 
-        if (common.getPhone() != null && !common.getPhone().trim().isEmpty()) {
-            mymap.put("phone", common.getPhone());
+        if (common.getRole() != null && !common.getRole().trim().isEmpty()) {
+            mymap.put("Role", common.getRole());
         }
         if (common.getGender() != null && !common.getGender().trim().isEmpty()) {
-            mymap.put("gender", common.getGender());
-        }
-        if (common.getBalance() != 0) {
-            mymap.put("balance", common.getBalance());
-        }
-        if (common.getLocation() != null && !common.getLocation().trim().isEmpty()) {
-            mymap.put("location", common.getLocation());
-        }
-        if (common.getCheck() != 0) {
-            mymap.put("check", common.getCheck());
+            mymap.put("Gender", common.getGender());
         }
 
-        if (common.getTotalPrice() != 0) {
-            mymap.put("totalPrice", common.getTotalPrice());
+        if (common.getIdCard() != null && !common.getIdCard().trim().isEmpty()) {
+            mymap.put("IdCard", common.getIdCard());
         }
-        if (common.getOrderNo() != null) {
-            mymap.put("orderNo", common.getOrderNo());
+
+
+        if (common.getAddress() != null && !common.getAddress().trim().isEmpty()) {
+            mymap.put("Address", common.getAddress());
         }
-        if (common.getCategoryName() != null && !common.getCategoryName().trim().isEmpty()) {
-            mymap.put("categoryName", common.getCategoryName());
+
+
+        if (common.getCreateDate() != null && !common.getCreateDate().trim().isEmpty()) {
+            mymap.put("CreateDate", common.getCreateDate());
         }
+
+
+
+
+        //Task
+        if (common.getTaskId() != 0) {
+            mymap.put("TaskId", common.getTaskId());
+        }
+
+        if (common.getTaskContent() != null && !common.getTaskContent().trim().isEmpty()) {
+            mymap.put("TaskContent", common.getTaskContent());
+        }
+
+        if (common.getAssignedTo() != 0) {
+            mymap.put("AssignedTo", common.getAssignedTo());
+        }
+
+        if (common.getTaskStatus() != null && !common.getTaskStatus().trim().isEmpty()) {
+            mymap.put("TaskStatus", common.getTaskStatus());
+        }
+        if (common.getStartDate() != null && !common.getStartDate().trim().isEmpty()) {
+            mymap.put("StartDate", common.getStartDate());
+        }
+
+        if (common.getCompletionDate() != null && !common.getCompletionDate().trim().isEmpty()) {
+            mymap.put("CompletionDate", common.getCompletionDate());
+        }
+
         return mymap;
+
     }
+
+
+
 //    private Map<String,String> createMyMap(Common common){
 //
 //        Map<String,String> mymap=new HashMap<>();

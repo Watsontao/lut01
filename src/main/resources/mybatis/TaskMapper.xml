@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vincent.task.mapper.TaskMapper">
+
+  <!-- ResultMap 定义，映射 tasks 表字段到 com.vincent.task.pojo.Task 实体 -->
+  <resultMap id="com_vincent_task_mapper_TaskResultMap" type="com.vincent.task.pojo.Task">
+    <id property="taskId" column="taskid"/>
+    <result property="taskContent" column="task_content"/>
+    <result property="assignedTo" column="assigned_to"/>
+    <result property="taskStatus" column="task_status"/>
+    <result property="startDate" column="start_date"/>
+    <result property="completionDate" column="completion_date"/>
+  </resultMap>
+
+  <!-- 1、利用简单查询获取所有 Task 的详细信息 -->
+  <select id="selectAll_test" resultMap="com_vincent_task_mapper_TaskResultMap">
+    SELECT * FROM tasks
+  </select>
+
+  <!-- 2、根据 taskid 查询指定 Task -->
+  <select id="selectByTaskId" parameterType="java.lang.Integer" resultMap="com_vincent_task_mapper_TaskResultMap">
+    SELECT * FROM tasks
+    WHERE taskid = #{taskId}
+  </select>
+
+  <!-- 3、获取所有 Task，返回对象类型直接映射 -->
+  <select id="selectAll" resultType="com.vincent.task.pojo.Task">
+    SELECT * FROM tasks
+  </select>
+
+  <!-- 4、完整插入一个 Task (包含 taskid) -->
+  <insert id="insert" parameterType="com.vincent.task.pojo.Task">
+    INSERT INTO tasks (taskid, task_content, assigned_to, task_status, start_date, completion_date)
+    VALUES (#{taskId,jdbcType=INTEGER}, #{taskContent,jdbcType=VARCHAR}, #{assignedTo,jdbcType=INTEGER},
+            #{taskStatus,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR}, #{completionDate,jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 5、添加一个 Task（自动生成 taskid，不需传入）-->
+  <insert id="add" parameterType="com.vincent.task.pojo.Task">
+    INSERT INTO tasks (task_content, assigned_to, task_status, start_date, completion_date)
+    VALUES (#{taskContent,jdbcType=VARCHAR}, #{assignedTo,jdbcType=INTEGER},
+            #{taskStatus,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR}, #{completionDate,jdbcType=VARCHAR})
+  </insert>
+
+</mapper>

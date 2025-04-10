@@ -28,6 +28,6 @@ public interface UserService {
     User findUserByUserId(int userId);
 
     //6、根据账号密码查找用户
-    User findUserByNameAndPassword(User user);
+    User findUserByNAP(User user);
 
 }

@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>BeautyShop</artifactId>
+    <artifactId>bslut</artifactId>
     <version>1.0-SNAPSHOT</version>
+
 
     <!--打包成war包-->
     <packaging>war</packaging>
@@ -74,24 +75,21 @@
         </dependency>
 
         <!-- mysql连接-->
-       <!-- <dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.25</version>
-        </dependency>-->
-        <!--连接GaussDB-->
-        <dependency>
-            <groupId>com.huawei.gauss.jdbc</groupId>
-            <artifactId>ZenithDriver</artifactId>
-            <version>1.2.1</version>
         </dependency>
 
-        <!--数据库需要连接才可以逆向-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
-        </dependency>
+
+        <!--连接GaussDB-->
+<!--        <dependency>-->
+<!--            <groupId>com.huawei.gauss.jdbc</groupId>-->
+<!--            <artifactId>ZenithDriver</artifactId>-->
+<!--            <version>1.2.1</version>-->
+<!--        </dependency>-->
+
+
 
         <!--把tomcat移除，只是打包不需要-->
         <dependency>
@@ -124,6 +122,19 @@
                 <version>3.2.3</version>
             </plugin>
         </plugins>
+
+
+            <resources>
+                <!--指定资源的位置（xml放在resources下，可以不用指定）-->
+                <resource>
+                    <directory>src/main/resources</directory>
+                    <includes>
+                        <include>mybatis/*.xml</include>
+                    </includes>
+                </resource>
+            </resources>
+
+
     </build>
 
 

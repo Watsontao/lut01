@@ -10,7 +10,8 @@ spring:
     #spring.resources用于配置静态资源的处理，而spring.thymeleaf用于配置Thymeleaf模板引擎。
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource   #数据库连接池
-    url: jdbc:mysql://localhost:3306/commodityshop?characterEncoding=utf8&serverTimezone=Asia/Shanghai  #数据库连接地址
+    driver-class-name: com.mysql.cj.jdbc.Driver   # 指定 MySQL 8 的 JDBC 驱动
+    url: jdbc:mysql://localhost:3306/bslut?characterEncoding=utf8&serverTimezone=Asia/Shanghai  #数据库连接地址
     username: root   #数据库登录用户名
     password: 123456    #数据库登录密码
 #
@@ -19,17 +20,20 @@ spring:
 #    password: Wst2539234366
 #    driver-class-name: com.huawei.gauss.jdbc.ZenithDriver
 
-mybatis:
-  mapper-locations: classpath:mybatis/*.xml   #sql语句的位置
-
+mybatis-plus:
+  mapper-locations: classpath:mybatis/*.xml
+  type-aliases-package: com.vincent.*.pojo
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #显示执行的sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
 
-mybatis-plus: # Mybatis Plus 配置信息
-  global-config:
-    # 全局配置
-    db-config:
-      # 逻辑删除配置
-      logic-delete-field: isDeleted # 逻辑删除字段
-      logic-delete-value: 1 # 设置 1 为 逻辑删除值
-      logic-not-delete-value: 0 # 0 没删
+
+
+
+#  global-config:
+#    # 全局配置
+#    db-config:
+#      # 逻辑删除配置
+#      logic-delete-field: isDeleted # 逻辑删除字段
+#      logic-delete-value: 1 # 设置 1 为 逻辑删除值
+#      logic-not-delete-value: 0 # 0 没删

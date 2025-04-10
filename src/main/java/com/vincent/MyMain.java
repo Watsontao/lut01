@@ -5,7 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-/*@MapperScan("user.mapper")*/
+
+//@MapperScan("com.vincent.user.mapper")
 public class MyMain {
     public static void main(String[] args) {
         SpringApplication.run(MyMain.class,args);

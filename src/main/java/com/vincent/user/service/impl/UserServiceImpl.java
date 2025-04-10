@@ -41,11 +41,17 @@ public class UserServiceImpl implements UserService {
     public User findUserByUserId(int userId) {return userMapper.findUserByUserId(userId);}
 
     @Override
-    public User findUserByNameAndPassword(User user) {
-        return userMapper.findUserByNameAndPassword(user);
+    public User findUserByNAP(User user) {
+        return userMapper.findUserByNAP(user);
     }
 
     @Override
     public int updateByUserId(User user ) {return userMapper.updateByUserId(user);}
+
+//    public static void main(String[] args) {
+//        UserServiceImpl userService = new UserServiceImpl();
+//        User user = new User(1,"vincent","123","农民","男","123456789","甘肃兰州","2025-4-9");
+//        System.out.println(userService.add(user));
+//    }
 
 }

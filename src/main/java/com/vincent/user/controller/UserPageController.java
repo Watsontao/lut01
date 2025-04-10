@@ -52,18 +52,22 @@ public class UserPageController {
     //设置登陆成功页
     @RequestMapping("/login_success")
     public String loginSuccess(User user, int platform,  HttpServletRequest req){
+
         //判断用户名和密码是否正确
-        User userTemp = userServiceImpl.findUserByNameAndPassword(user);
+        User userTemp = userServiceImpl.findUserByNAP(user);
+        System.out.println("输出一下findUserByNAP的结果，看看是否为空："+userTemp);
+
         if (userTemp != null) {
-            //用户输入正确，写入session ,可以在商品列表页调用username，跳转到商品页
+
+            //用户输入正确，写入session
             req.getSession().setAttribute("username", userTemp.getUserName());
             req.getSession().setAttribute("userId",userTemp.getUserId());
             //用户不为空,跳转商品页
             if(platform==0){
-                return "redirect:/commodity/list";
+                return "redirect:/admin/manage?className=com.vincent.user.pojo.User";
             }
             else{
-                return "redirect:/admin/manage?className=com.vincent.commodity.pojo.Commodity";
+                return "redirect:/admin/manage?className=com.vincent.user.pojo.User";
             }
 
         } else {

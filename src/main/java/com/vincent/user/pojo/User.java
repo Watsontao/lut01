@@ -1,42 +1,30 @@
 package com.vincent.user.pojo;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.vincent.order.pojo.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
-    //24.4.8
-    @TableId(type = IdType.ID_WORKER)
+    @TableId(value = "userid", type = IdType.AUTO)
     private int userId;
 
     private String userName;
 
     private String password;
 
-    private String phone;
+    private String role;         // 用户身份，例如 “农民工”、 “管理员”
 
-    private String gender;
+    private String gender;       // 性别
 
-    private int balance;
+    private String idCard;       // 身份证号
 
-    private String location;
+    private String address;      // 家庭住址
 
-    private int check;
-
-    //用户和订单是一对多
-    private List<Order> orders;
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
+    private String createDate;   // 注册日期，使用 VARCHAR 类型存储
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vincent.crops.mapper.CropMapper">
+
+  <!-- ResultMap 定义，映射 crops 表字段到 com.vincent.crops.pojo.Crops 实体 -->
+  <resultMap id="com_vincent_crops_mapper_CropsResultMap" type="com.vincent.crops.pojo.Crop">
+    <id property="cropId" column="cropid"/>
+    <result property="userid" column="userid"/>
+    <result property="greenhouseName" column="greenhouse_name"/>
+    <result property="cropName" column="crop_name"/>
+    <result property="plantingDate" column="planting_date"/>
+    <result property="growthCycle" column="growth_cycle"/>
+    <result property="estimatedHarvestDate" column="estimated_harvest_date"/>
+    <result property="status" column="status"/>
+  </resultMap>
+
+  <!-- 1、利用简单查询获取所有 Crop 的详细信息 -->
+  <select id="selectAll_test" resultMap="com_vincent_crops_mapper_CropsResultMap">
+    SELECT * FROM crops
+  </select>
+
+  <!-- 2、根据 cropid 查询指定 Crop -->
+  <select id="selectByCropId" parameterType="java.lang.Integer" resultMap="com_vincent_crops_mapper_CropsResultMap">
+    SELECT * FROM crops
+    WHERE cropid = #{cropId}
+  </select>
+
+  <!-- 3、获取所有 Crop，返回对象类型直接映射 -->
+  <select id="selectAll" resultType="com.vincent.crops.pojo.Crop">
+    SELECT * FROM crops
+  </select>
+
+  <!-- 4、完整插入一个 Crop (包含cropid) -->
+  <insert id="insert" parameterType="com.vincent.crops.pojo.Crop">
+    INSERT INTO crops (cropid, userid, greenhouse_name, crop_name, planting_date, growth_cycle, estimated_harvest_date, status)
+    VALUES (#{cropId,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{greenhouseName,jdbcType=VARCHAR}, #{cropName,jdbcType=VARCHAR},
+            #{plantingDate,jdbcType=VARCHAR}, #{growthCycle,jdbcType=VARCHAR}, #{estimatedHarvestDate,jdbcType=VARCHAR},
+            #{status,jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 5、添加一个 Crop（自动生成 cropid，不需传入）-->
+  <insert id="add" parameterType="com.vincent.crops.pojo.Crop">
+    INSERT INTO crops (userid, greenhouse_name, crop_name, planting_date, growth_cycle, estimated_harvest_date, status)
+    VALUES (#{userid,jdbcType=INTEGER}, #{greenhouseName,jdbcType=VARCHAR}, #{cropName,jdbcType=VARCHAR},
+            #{plantingDate,jdbcType=VARCHAR}, #{growthCycle,jdbcType=VARCHAR}, #{estimatedHarvestDate,jdbcType=VARCHAR},
+            #{status,jdbcType=VARCHAR})
+  </insert>
+
+</mapper>
