@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="bslut:war">
+    <output-path>$PROJECT_DIR$/lut01-web/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>bslut</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="bslut-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="bslut:war exploded" />
+    </root>
+  </artifact>
+</component>
