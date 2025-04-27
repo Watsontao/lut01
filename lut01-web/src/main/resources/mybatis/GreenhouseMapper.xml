@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vincent.greenhouse.mapper.GreenhouseMapper">
+
+    <resultMap id="BaseMap" type="com.vincent.greenhouse.pojo.Greenhouse">
+        <id     column="greenhouse_id"    property="greenhouseId"/>
+        <result column="greenhouse_name"  property="greenhouseName"/>
+        <result column="greenhouse_location" property="greenhouseLocation"/>
+        <result column="greenhouse_type"  property="greenhouseType"/>
+        <result column="area"             property="area"/>
+        <result column="status"           property="status"/>
+        <result column="description"      property="description"/>
+        <result column="plants"           property="plants"/>
+        <result column="video_url"        property="videoUrl"/>
+        <result column="supervisor"       property="supervisor"/>
+        <result column="crop_maturity"    property="cropMaturity"/>
+        <result column="expected_harvest" property="expectedHarvest"/>
+        <result column="grow_days"        property="growDays"/>
+        <result column="irrigation_status" property="irrigationStatus"/>
+        <result column="ventilation_status" property="ventilationStatus"/>
+        <result column="lighting_status"  property="lightingStatus"/>
+        <result column="create_time"      property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column">
+        greenhouse_id,greenhouse_name,greenhouse_location,greenhouse_type,area,status,
+    description,plants,video_url,supervisor,crop_maturity,expected_harvest,grow_days,
+    irrigation_status,ventilation_status,lighting_status,create_time
+    </sql>
+
+    <!-- 查询全部 -->
+    <select id="selectAll" resultMap="BaseMap">
+        SELECT <include refid="Base_Column"/> FROM greenhouses
+    </select>
+
+    <!-- 按 id 查询 -->
+    <select id="selectById" resultMap="BaseMap">
+        SELECT <include refid="Base_Column"/> FROM greenhouses WHERE greenhouse_id = #{id}
+    </select>
+
+    <!-- 新增 -->
+    <insert id="insert" parameterType="com.vincent.greenhouse.pojo.Greenhouse" useGeneratedKeys="true" keyProperty="greenhouseId">
+        INSERT INTO greenhouses
+        (greenhouse_name,greenhouse_location,greenhouse_type,area,status,description,
+         plants,video_url,supervisor,crop_maturity,expected_harvest,grow_days,
+         irrigation_status,ventilation_status,lighting_status,create_time)
+        VALUES
+            (#{greenhouseName},#{greenhouseLocation},#{greenhouseType},#{area},#{status},#{description},
+             #{plants},#{videoUrl},#{supervisor},#{cropMaturity},#{expectedHarvest},#{growDays},
+             #{irrigationStatus},#{ventilationStatus},#{lightingStatus},NOW())
+    </insert>
+
+    <!-- 更新（按 id）-->
+    <update id="updateById" parameterType="com.vincent.greenhouse.pojo.Greenhouse">
+        UPDATE greenhouses
+        SET greenhouse_name = #{greenhouseName},
+            greenhouse_location = #{greenhouseLocation},
+            greenhouse_type = #{greenhouseType},
+            area = #{area},
+            status = #{status},
+            description = #{description},
+            plants = #{plants},
+            video_url = #{videoUrl},
+            supervisor = #{supervisor},
+            crop_maturity = #{cropMaturity},
+            expected_harvest = #{expectedHarvest},
+            grow_days = #{growDays},
+            irrigation_status = #{irrigationStatus},
+            ventilation_status = #{ventilationStatus},
+            lighting_status = #{lightingStatus}
+        WHERE greenhouse_id = #{greenhouseId}
+    </update>
+
+    <!-- 单删 -->
+    <delete id="deleteById">
+        DELETE FROM greenhouses WHERE greenhouse_id = #{id}
+    </delete>
+
+    <!-- 批量删 -->
+    <delete id="deleteBatch">
+        DELETE FROM greenhouses WHERE greenhouse_id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 统一开关切换 -->
+    <update id="toggleStatus">
+        UPDATE greenhouses
+        SET
+        <choose>
+            <when test="field=='irrigation'"> irrigation_status = 1 - irrigation_status </when>
+            <when test="field=='ventilation'"> ventilation_status = 1 - ventilation_status </when>
+            <otherwise> lighting_status    = 1 - lighting_status </otherwise>
+        </choose>
+        WHERE greenhouse_id = #{id}
+    </update>
+
+
+
+    <!--用于harmonyOS-->
+    <select id="selectByUserId" parameterType="int" resultMap="BaseMap">
+        SELECT * FROM greenhouses WHERE user_id = #{userId}
+    </select>
+
+</mapper>

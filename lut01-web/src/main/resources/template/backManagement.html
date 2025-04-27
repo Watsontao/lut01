@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--  采用cdn分发技术  -->
+    <!--jquery的网络链接-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <!--bootstrap   css / js 的网络链接-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+    <!--font-awesome图标字体的网络链接-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* 添加自定义样式 */
+        .custom-button {
+            font-size: 14px; /* 设置字体大小 */
+            padding: 5px 10px; /* 设置按钮内边距以减小按钮大小 */
+            margin: 2px; /* 设置按钮间距 */
+            background-color: #3287e3; /* 设置按钮颜色 */
+            color: white; /* 设置按钮文本颜色 */
+            border: none; /* 移除边框 */
+            border-radius: 4px; /* 设置按钮圆角 */
+            text-decoration: none; /* 移除a标签下划线 */
+            transition: background-color 0.3s; /* 设置过渡效果 */
+        }
+
+        /* 设置鼠标悬停时的背景色 */
+        .custom-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<!--导航条-->
+<div class="row">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">你今天真好看——美妆商城</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <!--注意后期修改-->
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="请输入搜索内容...">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>登录用户：
+                            <span th:if="${username!=''}" th:text="${username}"></span>
+                            <span th:if="${username==''||username==null}">匿名用户</span>
+                        </a>
+                    <li class="dropdown">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">操作 <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a th:if="${username==''||username==null}"
+                                   href="http://localhost:8080/user/login">登陆</a></li>
+                            <li><a th:if="${username==''||username==null}"
+                                   href="http://localhost:8080/user/register">注册</a></li>
+                            <li><a href="http://localhost:8080/user/update" th:if="${!(username==''||username==null)}">个人中心（修改）</a>
+                            </li>
+                            <li><a href="http://localhost:8080/user/exit"
+                                   th:if="${!(username==''||username==null)}">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+
+
+<div class="row">
+    <!--左栏是个列表-->
+    <div class="col-sm-3">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">
+                显示所有数据
+            </a>
+            <a th:href="'http://localhost:8080/admin/add_page'" class="list-group-item">增加一条数据</a>
+        </div>
+    </div>
+    <!--右栏是个表格-->
+
+    <div class="col-sm-9">
+        <div class="col-sm-9">
+            <!-- 修改按钮并添加自定义的类 -->
+            <a th:href="'http://localhost:8080/admin/manage?className=com.vincent.crops.pojo.Crop'" class="custom-button">作物管理</a>
+            <a th:href="'http://localhost:8080/admin/manage?className=com.vincent.user.pojo.User'" class="custom-button">农工管理</a>
+            <a th:href="'http://localhost:8080/admin/manage?className=com.vincent.task.pojo.Task'" class="custom-button">任务管理</a>
+            <a th:href="'http://localhost:8080/admin/manage?className=com.vincent.category.pojo.Category'" class="custom-button">气候可视化</a>
+        </div>
+        <table class="table table-striped">
+            <!-- Table Header -->
+            <thead>
+            <!-- User Table Headers -->
+            <tr th:if="${tableName} == 'user'">
+                <th>ID</th>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>电话</th>
+                <th>性别</th>
+                <th>账户余额</th>
+                <th>地址</th>
+                <th>Check</th>
+                <th>操作</th>
+            </tr>
+            <!-- Commodity Table Headers -->
+            <tr th:if="${tableName} == 'commodity'">
+                <th>ID</th>
+                <th>商品名</th>
+                <th>商品图片</th>
+                <th>价格</th>
+                <th>库存</th>
+                <th>操作</th>
+            </tr>
+            <!-- Order Table Headers -->
+            <tr th:if="${tableName} == 'order'">
+                <th>ID</th>
+                <th>商品单号</th>
+                <th>操作</th>
+            </tr>
+            <!-- Category Table Headers -->
+            <tr th:if="${tableName} == 'category'">
+                <th>ID</th>
+                <th>品牌名</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            <!-- Table Body -->
+            <tbody>
+            <!-- User Table Rows -->
+            <tr th:if="${tableName} == 'user'" th:each="myitem: ${tableColumnValues}">
+                <td th:text="${myitem.getUserId()}"></td>
+                <td th:text="${myitem.getUserName()}"></td>
+                <td th:text="${myitem.getPassword()}"></td>
+                <td th:text="${myitem.getPhone()}"></td>
+                <td th:text="${myitem.getGender()}"></td>
+                <td th:text="${myitem.getBalance()}"></td>
+                <td th:text="${myitem.getLocation()}"></td>
+                <td th:text="${myitem.getCheck()}"></td>
+                <td>
+                    <a th:href="'http://localhost:8080/admin/del?id='+${myitem.getUserId()}">删除</a>
+                    <a th:href="'http://localhost:8080/admin/update_page?id='+${myitem.getUserId()}">修改</a>
+                </td>
+            </tr>
+            <!-- Commodity Table Rows -->
+            <tr th:if="${tableName} == 'commodity'" th:each="myitem: ${tableColumnValues}">
+                <td th:text="${myitem.getCommodityId()}"></td>
+                <td th:text="${myitem.getCommodityName()}"></td>
+                <td th:text="${myitem.getImg()}"></td>
+                <td th:text="${myitem.getPrice()}"></td>
+                <td th:text="${myitem.getInventory()}"></td>
+                <td>
+                    <a th:href="'http://localhost:8080/admin/del?id='+${myitem.getCommodityId()}">删除</a>
+                    <a th:href="'http://localhost:8080/admin/update_page?id='+${myitem.getCommodityId()}">修改</a>
+                </td>
+            </tr>
+            <!-- Order Table Rows -->
+            <tr th:if="${tableName} == 'order'" th:each="myitem: ${tableColumnValues}">
+                <td th:text="${myitem.getOrderId()}"></td>
+                <td th:text="${myitem.getOrderNo()}"></td>
+                <td>
+                    <a th:href="'http://localhost:8080/admin/del?id='+${myitem.getOrderId()}">删除</a>
+                </td>
+            </tr>
+            <!-- Category Table Rows -->
+            <tr th:if="${tableName} == 'category'" th:each="myitem: ${tableColumnValues}">
+                <td th:text="${myitem.getCategoryId()}"></td>
+                <td th:text="${myitem.getCategoryName()}"></td>
+                <td>
+                    <!--<a th:href="@{/admin/del(id=${myitem.commonId})}">删除</a>
+                    <a th:href="@{/admin/update_page(id=${myitem.commonId})}">修改</a>-->
+                    <a th:href="'http://localhost:8080/admin/del?id='+${myitem.getCategoryId()}">删除</a>
+                    <a th:href="'http://localhost:8080/admin/update_page?id='+${myitem.getCategoryId()}">修改</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

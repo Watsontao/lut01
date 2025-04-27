@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vincent.crops.mapper.CropMapper">
+  <resultMap id="cropsMap" type="com.vincent.crops.pojo.Crop">
+    <id     column="crop_id"         property="cropId" />
+    <result column="greenhouse_name" property="greenhouseName"/>
+    <result column="crop_name"       property="cropName"/>
+    <result column="planting_time"   property="plantingDate"/>
+    <result column="growth_cycle"    property="growthCycle"/>
+    <result column="image_url"       property="cropImageUrl"/>
+    <result column="content"         property="cropContent"/>
+  </resultMap>
+
+
+  <select id="selectAll" resultMap="cropsMap">
+    SELECT * FROM crops
+  </select>
+
+  <select id="selectByCropId" parameterType="int" resultMap="cropsMap">
+    SELECT * FROM crops WHERE crop_id = #{cropId}
+  </select>
+</mapper>
