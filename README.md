@@ -10,7 +10,8 @@ Intelligent agricultural management system based on the combination of Hongmeng 
 
 #### 鸿蒙端
 
-**IDE**：DevEco studio 5.00
+```
+IDE：DevEco studio 5.00
 
 HarmonyOS SDK：HarmonyOS 5.0.3（15）
 
@@ -23,9 +24,11 @@ ohpm：1.1.2
 Gradle：7.3
 
 stage模型
+```
 
 #### Web端
 
+```
 IDE：IDEA 2021.3.2
 
 Java版本：1.8
@@ -47,6 +50,7 @@ mybatis
 前端： Vue+js
 
 前后端分离，web的springboot的服务器端口是9090  npm的服务器端口是8080
+```
 
 ## 数据库
 
