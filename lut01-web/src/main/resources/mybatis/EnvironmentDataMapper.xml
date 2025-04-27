@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vincent.EnvironmentData.mapper.EnvironmentDataMapper">
+
+  <select id="selectHistoryByGreenhouseId" resultType="com.vincent.EnvironmentData.pojo.EnvironmentData">
+    SELECT
+      envid AS envId,
+      greenhouse_id AS greenhouseName,
+      record_date  AS recordDate,
+      temperature,
+      humidity,
+      soil_moisture AS soilMoisture,
+      light_intensity AS lightIntensity
+    FROM environment_data
+    WHERE greenhouse_id = #{greenhouseId}
+    ORDER BY record_date  ASC
+  </select>
+
+  <insert id="insert" parameterType="com.vincent.EnvironmentData.pojo.EnvironmentData">
+    INSERT INTO environment_data (greenhouse_id, record_date, temperature, humidity, soil_moisture, light_intensity)
+    VALUES (#{greenhouseId}, #{recordDate}, #{temperature}, #{humidity}, #{soilMoisture}, #{lightIntensity})
+  </insert>
+
+
+</mapper>

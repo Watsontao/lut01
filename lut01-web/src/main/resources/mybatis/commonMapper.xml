@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vincent.common.mapper.commonMapper">
+
+    <!-- 查询所有记录：根据传入的表名动态查询 -->
+    <select id="selectAll" parameterType="java.lang.String" resultType="com.vincent.common.pojo.Common">
+        select * from ${table_name}
+    </select>
+
+    <!-- 根据ID查询单条记录：动态表名和主键列 -->
+    <select id="getOneById" parameterType="com.vincent.common.pojo.CommOpper"
+            resultType="com.vincent.common.pojo.Common">
+        select * from ${tableName} where ${idColumnName} = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!-- 删除记录：动态表名和主键列 -->
+    <delete id="delete" parameterType="com.vincent.common.pojo.CommOpper">
+        delete from ${tableName} where ${idColumnName} = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 更新记录：根据不同的表更新对应字段 -->
+    <update id="update" parameterType="com.vincent.common.pojo.CommOpper">
+        update ${tableName}
+        <set>
+            <!-- 用户表 update -->
+            <if test="tableName == 'users'">
+                <if test="maps.username != null">username = #{maps.username,jdbcType=VARCHAR},</if>
+                <if test="maps.phone != null">phone = #{maps.phone,jdbcType=VARCHAR},</if>
+                <if test="maps.password != null">password = #{maps.password,jdbcType=VARCHAR},</if>
+                <if test="maps.role != null">role = #{maps.role,jdbcType=VARCHAR},</if>
+                <if test="maps.gender != null">gender = #{maps.gender,jdbcType=VARCHAR},</if>
+                <if test="maps.idCard != null">id_card = #{maps.idCard,jdbcType=VARCHAR},</if>
+                <if test="maps.address != null">address = #{maps.address,jdbcType=VARCHAR},</if>
+                <if test="maps.createDate != null">create_VARCHAR_255 = #{maps.createDate,jdbcType=VARCHAR},</if>
+                <if test="maps.imageUrl != null">image_url = #{maps.imageUrl,jdbcType=VARCHAR},</if>
+            </if>
+
+            <!-- 农作物表 update -->
+            <if test="tableName == 'crops'">
+                <if test="maps.userId != null">user_id = #{maps.userId,jdbcType=INTEGER},</if>
+                <if test="maps.greenhouseName != null">greenhouse_name = #{maps.greenhouseName,jdbcType=VARCHAR},</if>
+                <if test="maps.cropName != null">crop_name = #{maps.cropName,jdbcType=VARCHAR},</if>
+                <if test="maps.plantingDate != null">planting_VARCHAR_255 = #{maps.plantingDate,jdbcType=VARCHAR},</if>
+                <if test="maps.growthCycle != null">growth_cycle = #{maps.growthCycle,jdbcType=VARCHAR},</if>
+                <if test="maps.estimatedHarvestDate != null">estimated_harvest_VARCHAR_255 = #{maps.estimatedHarvestDate,jdbcType=VARCHAR},</if>
+                <if test="maps.cropStatus != null">status = #{maps.cropStatus,jdbcType=VARCHAR},</if>
+                <if test="maps.imageUrl != null">image_url = #{maps.imageUrl,jdbcType=VARCHAR},</if>
+                <if test="maps.content != null">content = #{maps.content,jdbcType=VARCHAR},</if>
+            </if>
+
+            <!-- 环境数据表 update（保留原来环境数据结构，如后续提供新字段再更新） -->
+            <if test="tableName == 'environment_data'">
+                <if test="maps.greenhouseName != null">greenhouse_name = #{maps.greenhouseName,jdbcType=VARCHAR},</if>
+                <if test="maps.recordDate != null">record_date = #{maps.recordDate,jdbcType=VARCHAR},</if>
+                <if test="maps.temperature != null">temperature = #{maps.temperature,jdbcType=FLOAT},</if>
+                <if test="maps.humidity != null">humidity = #{maps.humidity,jdbcType=FLOAT},</if>
+                <if test="maps.soilMoisture != null">soil_moisture = #{maps.soilMoisture,jdbcType=FLOAT},</if>
+                <if test="maps.lightIntensity != null">light_intensity = #{maps.lightIntensity,jdbcType=FLOAT},</if>
+            </if>
+
+            <!-- 任务管理表 update -->
+            <if test="tableName == 'tasks'">
+                <if test="maps.name != null">name = #{maps.name,jdbcType=VARCHAR},</if>
+                <if test="maps.content != null">content = #{maps.content,jdbcType=VARCHAR},</if>
+                <if test="maps.completed != null">completed = #{maps.completed,jdbcType=VARCHAR},</if>
+                <if test="maps.assignedUserId != null">assigned_user_id = #{maps.assignedUserId,jdbcType=INTEGER},</if>
+                <if test="maps.completeTime != null">complete_time = #{maps.completeTime,jdbcType=VARCHAR},</if>
+                <if test="maps.greenhouseName != null">greenhouse_name = #{maps.greenhouseName,jdbcType=VARCHAR},</if>
+                <if test="maps.publishDate != null">publish_VARCHAR_255 = #{maps.publishDate,jdbcType=VARCHAR},</if>
+                <if test="maps.deadline != null">deadline = #{maps.deadline,jdbcType=VARCHAR},</if>
+                <if test="maps.description != null">description = #{maps.description,jdbcType=VARCHAR},</if>
+            </if>
+
+            <!-- 大棚表 update -->
+            <if test="tableName == 'greenhouses'">
+                <if test="maps.greenhouseName != null">greenhouse_name = #{maps.greenhouseName,jdbcType=VARCHAR},</if>
+                <if test="maps.userId != null">user_id = #{maps.userId,jdbcType=INTEGER},</if>
+                <if test="maps.greenhouseLocation != null">greenhouse_location = #{maps.greenhouseLocation,jdbcType=VARCHAR},</if>
+                <if test="maps.greenhouseType != null">greenhouse_type = #{maps.greenhouseType,jdbcType=VARCHAR},</if>
+                <if test="maps.area != null">area = #{maps.area,jdbcType=DOUBLE},</if>
+                <if test="maps.status != null">status = #{maps.status,jdbcType=VARCHAR},</if>
+                <if test="maps.description != null">description = #{maps.description,jdbcType=VARCHAR},</if>
+                <if test="maps.imageUrl != null">image_url = #{maps.imageUrl,jdbcType=VARCHAR},</if>
+                <if test="maps.plants != null">plants = #{maps.plants,jdbcType=VARCHAR},</if>
+                <if test="maps.videoUrl != null">video_url = #{maps.videoUrl,jdbcType=VARCHAR},</if>
+                <if test="maps.cropMaturity != null">crop_maturity = #{maps.cropMaturity,jdbcType=VARCHAR},</if>
+                <if test="maps.expectedHarvestDate != null">expected_harvest_VARCHAR_255 = #{maps.expectedHarvestDate,jdbcType=VARCHAR},</if>
+                <if test="maps.growDays != null">grow_days = #{maps.growDays,jdbcType=INTEGER},</if>
+                <if test="maps.irrigationStatus != null">irrigation_status = #{maps.irrigationStatus,jdbcType=BOOLEAN},</if>
+                <if test="maps.ventilationStatus != null">ventilation_status = #{maps.ventilationStatus,jdbcType=BOOLEAN},</if>
+                <if test="maps.lightingStatus != null">lighting_status = #{maps.lightingStatus,jdbcType=BOOLEAN},</if>
+                <if test="maps.createDate != null">create_VARCHAR_255 = #{maps.createDate,jdbcType=VARCHAR},</if>
+                <if test="maps.supervisor != null">supervisor = #{maps.supervisor,jdbcType=VARCHAR},</if>
+            </if>
+        </set>
+        where ${idColumnName} = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 插入记录：根据不同表插入对应字段 -->
+    <insert id="add" parameterType="com.vincent.common.pojo.CommOpper">
+        <choose>
+            <!-- 用户表 insert -->
+            <when test="tableName == 'users'">
+                insert into users (username, phone, password, role, gender, id_card, address, create_VARCHAR_255, image_url)
+                values (
+                #{maps.username,jdbcType=VARCHAR},
+                #{maps.phone,jdbcType=VARCHAR},
+                #{maps.password,jdbcType=VARCHAR},
+                #{maps.role,jdbcType=VARCHAR},
+                #{maps.gender,jdbcType=VARCHAR},
+                #{maps.idCard,jdbcType=VARCHAR},
+                #{maps.address,jdbcType=VARCHAR},
+                #{maps.createDate,jdbcType=VARCHAR},
+                #{maps.imageUrl,jdbcType=VARCHAR}
+                )
+            </when>
+
+            <!-- 农作物表 insert -->
+            <when test="tableName == 'crops'">
+                insert into crops (user_id, greenhouse_name, crop_name, planting_VARCHAR_255, growth_cycle, estimated_harvest_VARCHAR_255, status, image_url, content)
+                values (
+                #{maps.userId,jdbcType=INTEGER},
+                #{maps.greenhouseName,jdbcType=VARCHAR},
+                #{maps.cropName,jdbcType=VARCHAR},
+                #{maps.plantingDate,jdbcType=VARCHAR},
+                #{maps.growthCycle,jdbcType=VARCHAR},
+                #{maps.estimatedHarvestDate,jdbcType=VARCHAR},
+                #{maps.cropStatus,jdbcType=VARCHAR},
+                #{maps.imageUrl,jdbcType=VARCHAR},
+                #{maps.content,jdbcType=VARCHAR}
+                )
+            </when>
+
+            <!-- 环境数据表 insert -->
+            <when test="tableName == 'environment_data'">
+                insert into environment_data (greenhouse_name, record_date, temperature, humidity, soil_moisture, light_intensity)
+                values (
+                #{maps.greenhouseName,jdbcType=VARCHAR},
+                #{maps.recordDate,jdbcType=VARCHAR},
+                #{maps.temperature,jdbcType=FLOAT},
+                #{maps.humidity,jdbcType=FLOAT},
+                #{maps.soilMoisture,jdbcType=FLOAT},
+                #{maps.lightIntensity,jdbcType=FLOAT}
+                )
+            </when>
+
+            <!-- 大棚表 insert -->
+            <when test="tableName == 'greenhouses'">
+                insert into greenhouses (greenhouse_name, user_id, greenhouse_location, greenhouse_type, area, status, description, image_url, plants, video_url, crop_maturity, expected_harvest_VARCHAR_255, grow_days, irrigation_status, ventilation_status, lighting_status, create_VARCHAR_255, supervisor)
+                values (
+                #{maps.greenhouseName,jdbcType=VARCHAR},
+                #{maps.userId,jdbcType=INTEGER},
+                #{maps.greenhouseLocation,jdbcType=VARCHAR},
+                #{maps.greenhouseType,jdbcType=VARCHAR},
+                #{maps.area,jdbcType=DOUBLE},
+                #{maps.status,jdbcType=VARCHAR},
+                #{maps.description,jdbcType=VARCHAR},
+                #{maps.imageUrl,jdbcType=VARCHAR},
+                #{maps.plants,jdbcType=VARCHAR},
+                #{maps.videoUrl,jdbcType=VARCHAR},
+                #{maps.cropMaturity,jdbcType=VARCHAR},
+                #{maps.expectedHarvestDate,jdbcType=VARCHAR},
+                #{maps.growDays,jdbcType=INTEGER},
+                #{maps.irrigationStatus,jdbcType=BOOLEAN},
+                #{maps.ventilationStatus,jdbcType=BOOLEAN},
+                #{maps.lightingStatus,jdbcType=BOOLEAN},
+                #{maps.createDate,jdbcType=VARCHAR},
+                #{maps.supervisor,jdbcType=VARCHAR}
+                )
+            </when>
+
+            <!-- 任务管理表 insert (默认) -->
+            <otherwise>
+                insert into tasks (name, content, completed, assigned_user_id, complete_time, greenhouse_name, publish_VARCHAR_255, deadline, description)
+                values (
+                #{maps.name,jdbcType=VARCHAR},
+                #{maps.content,jdbcType=VARCHAR},
+                #{maps.completed,jdbcType=VARCHAR},
+                #{maps.assignedUserId,jdbcType=INTEGER},
+                #{maps.completeTime,jdbcType=VARCHAR},
+                #{maps.greenhouseName,jdbcType=VARCHAR},
+                #{maps.publishDate,jdbcType=VARCHAR},
+                #{maps.deadline,jdbcType=VARCHAR},
+                #{maps.description,jdbcType=VARCHAR}
+                )
+            </otherwise>
+        </choose>
+    </insert>
+
+</mapper>
