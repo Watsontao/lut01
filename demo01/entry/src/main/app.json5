@@ -1,0 +1,21 @@
+{
+  // --- App-level 描述文件，只会有一个 ---
+  "app": {
+    "bundleName": "com.vincent.smartfarm",
+    "vendor": "vincent",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    },
+    /* 其它字段保持工程默认值 */
+  },
+
+  /* 👇 就在 app.json5 的同级节点新增 deviceConfig */
+  "deviceConfig": {
+    "default": {
+      "network": {
+        "cleartextTraffic": true    // 允许 HTTP；上线请改回 false
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "greenhouseid": 1,
+    "greenhouseName": "一号大棚",
+    "userid": 101,
+    "greenhouseLocation": "兰州农场A区",
+    "greenhouseType": "温室",
+    "area": 120,
+    "status": "正常",
+    "description": "主要种植西红柿",
+    "plants": "西红柿",
+    "airTemp": 26,
+    "airHumidity": 55,
+    "lightIntensity": 15000,
+    "imageUrl": "app.media.ic_greenhouse1"
+  },
+  {
+    "greenhouseid": 2,
+    "greenhouseName": "二号大棚",
+    "userid": 101,
+    "greenhouseLocation": "兰州农场B区",
+    "greenhouseType": "阳光房",
+    "area": 90,
+    "status": "警告",
+    "description": "湿度偏高",
+    "plants": "黄瓜",
+    "airTemp": 30,
+    "airHumidity": 80,
+    "lightIntensity": 17000,
+    "imageUrl": "app.media.ic_greenhouse2"
+  },
+  {
+    "greenhouseid": 3,
+    "greenhouseName": "三号大棚",
+    "userid": 101,
+    "greenhouseLocation": "兰州农场C区",
+    "greenhouseType": "冷棚",
+    "area": 150,
+    "status": "正常",
+    "description": "苗圃备用",
+    "plants": "草莓",
+    "airTemp": 20,
+    "airHumidity": 45,
+    "lightIntensity": 13000,
+    "imageUrl": "app.media.ic_greenhouse3"
+  }
+]
