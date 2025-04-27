@@ -1,0 +1,17 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/MainPage",
+    "pages/LoginPage",
+    "pages/ProfilePage",
+    "pages/HomePage",
+    "pages/GreenhousePage",
+    "pages/ChangePasswordPage",
+    "pages/SystemSettingsPage",
+    "pages/GreenhouseDetailPage",
+    "pages/TaskPage",
+    "pages/TaskDetailPage",
+    "pages/CropInfoPage",
+    "pages/CropDetailPage"
+  ]
+}
