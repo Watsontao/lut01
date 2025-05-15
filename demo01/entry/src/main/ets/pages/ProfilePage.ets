@@ -3,12 +3,23 @@ import router from '@ohos.router'
 import prompt from '@ohos.prompt'
 import call from '@ohos.telephony.call'
 import promptAction from '@ohos.promptAction'
+import { BasicConstants } from "../utils/BasicConstants"
 
 @Entry
 @Component
 export default struct ProfilePage {
   // private user: User = mockUser()
   @State user: User = AppStorage.get('user') as User
+  @State avatarUrl: string = ''
+
+  // 页面「即将出现」时初始化
+  aboutToAppear() {
+    let path = this.user.imageUrl ?? ''
+    if (!path.startsWith('/')) path = '/' + path
+    this.avatarUrl = BasicConstants.BASE_URL + path
+  }
+
+
 
   build() {
     Column() {
@@ -22,9 +33,9 @@ export default struct ProfilePage {
       Scroll() {
         Column({ space: 20 }) {
           Column() {
-            Image($r('app.media.ic_profile'))
-              .width(50)
-              .height(50)
+            Image(this.avatarUrl)
+              .width(80)
+              .height(70)
               .borderRadius(50)
               .aspectRatio(1)
               .objectFit(ImageFit.Contain)

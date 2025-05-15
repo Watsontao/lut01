@@ -14,56 +14,14 @@ import { BasicConstants } from '../utils/BasicConstants'
 export default struct GreenhousePage {
   @State  private greenhouseList: GreenhouseWithEnv[] = []
 
-  // aboutToAppear() {
-  //
-  //   console.log('进入GreenHousePage页面了')
-  //
-  //   // ① 拿到当前登录用户
-  //   const user: User = AppStorage.get('user') as User;
-  //
-  //   // ② 调用后端接口，查询该用户管理的大棚
-  //   getGreenhouseByUser(user.userId).then(greenhouses => {
-  //
-  //     // ③ 获取模拟的环境数据（你现在环境数据暂时还是 mock）
-  //     const envData = getMockEnvironmentData();
-  //
-  //     // ④ 合并大棚和环境数据，渲染页面
-  //     this.greenhouseList = greenhouses.map(gh => {
-  //       const env = envData.find(e => e.greenhouseId === gh.greenhouseId)
-  //     return {
-  //       greenhouseId: gh.greenhouseId,
-  //       greenhouseName: gh.greenhouseName,
-  //       userId: gh.userId,
-  //       greenhouseLocation: gh.greenhouseLocation,
-  //       greenhouseType: gh.greenhouseType,
-  //       area: gh.area,
-  //       status: gh.status,
-  //       description: gh.description,
-  //       imageUrl: `${BasicConstants.BASE_URL}${gh.imageUrl}`,
-  //       plants: gh.plants,
-  //       videoUrl: `${BasicConstants.BASE_URL}${gh.videoUrl}`,
-  //       cropMaturity: gh.cropMaturity,
-  //       expectedHarvestDate: gh.expectedHarvestDate,
-  //       growDays: gh.growDays,
-  //       irrigationStatus: gh.irrigationStatus,
-  //       ventilationStatus: gh.ventilationStatus,
-  //       lightingStatus: gh.lightingStatus,
-  //       createDate: gh.createDate,
-  //       supervisor: gh.supervisor,
-  //       environment: env } as GreenhouseWithEnv
-  //     })
-  //     console.log('✅ greenhouseList 数据：', JSON.stringify(this.greenhouseList))
-  //
-  //
-  //   }).catch((err: Error) => {
-  //     console.error('❌ 请求失败:', JSON.stringify(err))
-  //     prompt.showToast({ message: '加载失败，请稍后再试' });
-  //   })
-  // }
-
 
   aboutToAppear() {
     const user = AppStorage.get('user') as User
+
+    // const token = AppStorage.get<string>('token') ?? ''
+    // console.log('当前 token:', token)
+
+
     getGreenhouseByUser(user.userId)
       .then(greenhouses => {
         // 并行调用所有大棚的环境历史接口

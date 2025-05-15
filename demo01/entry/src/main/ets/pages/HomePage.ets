@@ -32,7 +32,7 @@ export struct HomePage {
           this.buildCard('大棚管理', $r('app.media.ic_greenhouse'), 'pages/GreenhousePage')
           this.buildCard('任务管理', $r('app.media.ic_clock'), 'pages/TaskPage')
           this.buildCard('作物信息', $r('app.media.ic_crop'), 'pages/CropInfoPage')
-          this.buildCard('环境预测', $r('app.media.ic_environment'), 'pages/EnvironmentPage')
+          this.buildCard('问答助手', $r('app.media.robot'), 'pages/AIConsultationPage')
         }
         .columnsTemplate('1fr 1fr')
         .rowsGap(16)

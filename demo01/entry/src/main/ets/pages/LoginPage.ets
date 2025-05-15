@@ -31,6 +31,10 @@ export default struct LoginPage {
       const result = await loginApi(this.phone, this.password);
 
       if (result.code === '200' && result.data?.token) {
+
+        AppStorage.setOrCreate('token', result.data.token)
+        globalThis.token = result.data.token; // ✅ 全局变量兜底
+
         AppStorage.setOrCreate('isLoggedIn', true);
         AppStorage.setOrCreate('token', result.data.token);
         AppStorage.setOrCreate('user', result.data.user);
@@ -90,6 +94,7 @@ export default struct LoginPage {
         .onChange(v => this.phone = v)
 
       TextInput({ placeholder: '请输入密码' })
+        .type(InputType.Password)
         .onChange(v => this.password = v)
 
       // 验证码行：输入 + 倒计时按钮

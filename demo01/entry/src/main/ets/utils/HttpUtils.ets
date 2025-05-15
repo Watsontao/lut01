@@ -15,18 +15,22 @@ export function myRequest<T, K>(
 
   return new Promise((resolve, reject) => {
 
+
+
     const token = AppStorage.get<string>('token') ?? ''
 
     const headers: Record<string, string> = {
 
-      'content-type': 'application/json'
+      'content-type': 'application/json',
     }
 
     if (token) {
       headers['token'] = `Bearer ${token}`; // ✅ 注意大小写
     }
 
+
     console.log(`🚀 请求 Headers: ${JSON.stringify(headers)}`);
+    console.log(`🚀 发送的token: ${JSON.stringify(token)}`);
 
 
     httpRequest.request(BasicConstants.BASE_URL + url, {

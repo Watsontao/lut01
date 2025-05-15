@@ -10,7 +10,7 @@ export interface Crop {
   growthCycle: string //生长周期
 
 
-  imageUrl: Resource        //  crop 图片
+  imageUrl: string        //  crop 图片
 
   cropContent: string           //  crop 的详细介绍文本
 

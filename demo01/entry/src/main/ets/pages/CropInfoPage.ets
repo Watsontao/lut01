@@ -1,6 +1,7 @@
 import { Crop } from '../model/Crop'
 import router from '@ohos.router'
 import { getAllCrops } from '../utils/api';
+import { BasicConstants } from "../utils/BasicConstants"
 
 
 @Entry
@@ -9,19 +10,53 @@ export default struct CropInfoPage {
 
   @State cropList: Crop[] = [];
 
+//   aboutToAppear() {
+//     getAllCrops()
+//       .then((list) => {
+//         this.cropList = list;
+//         AppStorage.set('cropList', list);
+//
+//       })
+//       .catch((e: Error) => {
+//         console.error('❌ 作物列表加载失败', e);
+//         // prompt.showToast({ message: '加载作物失败，请稍后重试' });
+//       });
+//
+// }
+
+
+  // 页面即将出现时拉取并处理数据
   aboutToAppear() {
     getAllCrops()
-      .then((list) => {
-        this.cropList = list;
-        AppStorage.set('cropList', list);
-
+      .then((list: Crop[]) => {
+        const processed: Crop[] = list.map((c: Crop) => {
+          // 1. 原始后端返回的相对路径
+          let path = c.imageUrl ?? ''
+          // 2. 保证以 “/” 开头
+          if (!path.startsWith('/')) {
+            path = '/' + path
+          }
+          // 3. 返回一个新的 Crop 对象，完整拼接 URL，并保留其它字段
+          return {
+            cropId:         c.cropId,
+            greenhouseName: c.greenhouseName,
+            cropName:       c.cropName,
+            plantingDate:   c.plantingDate,
+            growthCycle:    c.growthCycle,
+            imageUrl:       BasicConstants.BASE_URL + path,
+            cropContent:    c.cropContent
+          } as Crop
+        })
+        // 更新状态，触发页面重绘
+        this.cropList = processed
+        AppStorage.setOrCreate('cropList', processed)
       })
       .catch((e: Error) => {
-        console.error('❌ 作物列表加载失败', e);
-        // prompt.showToast({ message: '加载作物失败，请稍后重试' });
-      });
+        console.error('❌ 作物列表加载失败', e)
+        // prompt.showToast({ message: '加载作物失败，请稍后重试' })
+      })
+  }
 
-}
 
 
   build() {

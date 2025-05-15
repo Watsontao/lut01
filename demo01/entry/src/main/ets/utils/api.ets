@@ -177,13 +177,53 @@ export function getEnvironmentHistory(greenhouseId: number): Promise<Environment
 
 /** 控制大棚状态（灌溉/通风/灯光） */
 export function toggleGreenhouseStatus(greenhouseId: number, type: string): Promise<void> {
+  const token = AppStorage.get<string>('token') ?? ''
+
+  if (!token) {
+    return Promise.reject('token 为空，请重新登录')
+  }
+
   return myRequest<ResponseData<null>, null>(
     `/api/harmony/greenhouse/${greenhouseId}/toggle/${type}`,
     http.RequestMethod.POST,
+
     null
   ).then(res => {
     if (res.code === '200') return;
     throw new Error(res.msg);
   });
 }
+
+
+
+// api.ets —— 文件底部或合适位置加入
+
+/** 请求体接口  */
+export interface AskAIReq {
+  question: string;
+}
+
+/** 响应体接口 */
+export interface AiResp {
+  code: string;
+  msg: string;
+  data: string;   // 大模型答案
+}
+
+/** 向大模型提问，返回回答文本 */
+export function askAI(question: string): Promise<string> {
+  const body: AskAIReq = { question };
+  return myRequest<AiResp, AskAIReq>(
+    '/api/ai/ask',
+    http.RequestMethod.POST,
+    body
+  ).then(res => {
+    if (res.code === '200') {
+      return res.data;          // ← 纯文本
+    }
+    throw new Error(res.msg);
+  });
+}
+
+
 

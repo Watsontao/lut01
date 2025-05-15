@@ -12,6 +12,7 @@
     "pages/TaskPage",
     "pages/TaskDetailPage",
     "pages/CropInfoPage",
-    "pages/CropDetailPage"
+    "pages/CropDetailPage",
+    "pages/AIConsultationPage"
   ]
 }
