@@ -31,4 +31,6 @@ public class GreenhouseHarmonyController {
         greenhouseService.toggleStatus(id, type);
         return Result.success();
     }
+
+
 }

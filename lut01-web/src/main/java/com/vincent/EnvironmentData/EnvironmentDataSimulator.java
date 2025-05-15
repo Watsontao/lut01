@@ -42,7 +42,7 @@ public class EnvironmentDataSimulator {
         double lightIntensity = (hour >= 6 && hour <= 18) ? (Math.sin(Math.PI * (hour - 6) / 12) * 300 + random.nextDouble() * 50) : 0;
 
         // 写入数据
-        data.setGreenhouseId(1);
+        data.setGreenhouseId(8);
         data.setRecordDate(timeStr);
         data.setTemperature((float) temperature);
         data.setHumidity((float) humidity);
