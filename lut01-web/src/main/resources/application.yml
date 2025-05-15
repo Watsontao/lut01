@@ -28,6 +28,8 @@ mybatis-plus:
     map-underscore-to-camel-case: true
 
 
+zhipu:
+  api-key: 209061cd771f473ea082c2b7da56a9f0.BIYMnRiHwMwpvh3L
 
 
 #  global-config:

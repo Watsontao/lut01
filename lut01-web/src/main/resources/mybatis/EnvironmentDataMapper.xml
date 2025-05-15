@@ -8,7 +8,7 @@
   <select id="selectHistoryByGreenhouseId" resultType="com.vincent.EnvironmentData.pojo.EnvironmentData">
     SELECT
       envid AS envId,
-      greenhouse_id AS greenhouseName,
+      greenhouse_id AS greenhouseId,
       record_date  AS recordDate,
       temperature,
       humidity,

@@ -67,4 +67,6 @@ public class GreenhouseController {
         greenhouseService.toggleStatus(id, type);
         return Result.success();
     }
+
+
 }

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,12 +23,16 @@ import javax.servlet.http.HttpServletResponse;
  * JWT 拦截器：用于接口调用前验证 token 合法性
  */
 @Component
-public class JwtInterceptor implements HandlerInterceptor {
+public class JwtInterceptor implements HandlerInterceptor  {
 
     private static final Logger log = LoggerFactory.getLogger(JwtInterceptor.class);
 
     @Resource
     private UserService userService;
+
+
+
+
 
     /**
      * 请求前处理逻辑
@@ -43,14 +48,25 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         // ✅ 白名单放行：登录、注册、环境数据（历史）
         if (
-                uri.contains("/api/user/login") ||
-                        uri.contains("/api/user/register") ||
-                        uri.contains("/api/environment/history") ||
-                        uri.startsWith("/video/")     // ✅ 加这一行放行视频
+                uri.contains("/api/user/login")
+                        || uri.contains("/api/user/register")
+                        || uri.contains("/api/environment/history")
+                        || uri.contains("/api/harmony/greenhouse")
+                        || uri.startsWith("/video/")
+                        || uri.startsWith("/uploads/")
+                        || uri.startsWith("/error")        // ← 加上这一行
+
         ) {
             return true;
         }
 
+        // ✅ 放行 OPTIONS 请求（CORS预检）
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            System.out.println("【JwtInterceptor拦截器】OPTIONS 请求，直接放行");
+            return true;
+        }
+
+        System.out.println("【JwtInterceptor拦截器】获取到的uri："+uri);
 
         // 2. 获取 token
         String token = request.getHeader(Constants.TOKEN);
@@ -58,6 +74,14 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         System.out.println("【JwtInterceptor拦截器】获取到的 token = " + token);
 
+
+
+        if (token == null || token.trim().isEmpty()) {
+            System.out.println("【JwtInterceptor拦截器】token 为空，拒绝访问");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            response.getWriter().write("未登录或token为空");
+            return false;
+        }
 
 
         if (token.startsWith("Bearer ")) {

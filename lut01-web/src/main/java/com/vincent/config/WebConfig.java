@@ -38,7 +38,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/", "/login", "/register", "/files/**", "/api/harmony/user/login");
+                .excludePathPatterns("/",
+                        "/login",
+                        "/register",
+                        "/files/**",
+                        "/api/harmony/user/login",
+                        "/api/harmony/greenhouse/*/toggle/*",
+                        "/uploads/**",            // ← 静态资源
+                        "/error", "/error/**"     // ← Spring 的错误页
+                );
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
